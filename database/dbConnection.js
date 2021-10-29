@@ -1,14 +1,21 @@
 const Sequelize = require("sequelize");
-const config = require("../config/config.json");
 const connection = {};
+const config = require("../config/config.json");
+// const dotenv = require("dotenv");
+// dotenv.config();
 
 const sequelize = new Sequelize(
+  // process.env.DATABASE,
+  // process.env.USERNAME,
+  // process.env.PASSWORD,
   config.development.database,
   config.development.username,
   config.development.password,
   {
+    // dialect: process.env.DIALECT,
+    // host: process.env.HOST,
     dialect: config.development.dialect,
-    host: config.development.host,
+    host: config.development.config,
     port: 3306,
     retry: {
       match: [/ETIMEDOUT/],

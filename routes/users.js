@@ -67,6 +67,7 @@ userRouter.route("/login").post(async (req, res, next) => {
       console.log("Enter in post request Error");
       return getErrorResponse(error, res);
     }
+
     let userExist = await dbHandler.getItem("user", {
       where: { email: parseData.email },
     });
