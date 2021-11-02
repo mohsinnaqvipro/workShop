@@ -26,6 +26,7 @@ const sequelize = new Sequelize(
     },
   }
 );
+
 module.exports = async () => {
   if (connection.isConnected) {
     console.log("=> Existing connection.");

@@ -163,7 +163,7 @@ let departmentDetail = [
       "lunch",
       "dinner",
       "guestFood",
-      "chaye",
+      "tea",
       "drinks",
       "electricityBill",
       "waterBill",
@@ -203,6 +203,7 @@ let sallery = {
 let invoice = {
   id: 1,
   customerName: "Bilal",
+  customerPhoneNumber: "03000786936",
   vehicleNumber: "les-12345",
   timeIn: DateTime,
   timeOut: DateTime,
@@ -214,8 +215,10 @@ let invoicedetail = [
   {
     id: 1,
     invoiceId: 1,
+    productId: 1,
     deptId: 1,
     deptdetailId: 1,
+    productPrice: 50,
     subTotal: 1000,
   },
   {
@@ -223,6 +226,8 @@ let invoicedetail = [
     invoiceId: 1,
     deptId: 2,
     deptdetailId: 1,
+    productId: 1,
+    productPrice: 50,
     subTotal: 2000,
   },
   {
@@ -230,6 +235,21 @@ let invoicedetail = [
     invoiceId: 1,
     deptId: 3,
     deptdetailId: 1,
+    productId: 1,
+    productPrice: 50,
     subTotal: 2000,
   },
 ];
+
+let products = {
+  id: 1,
+  deptId: 1,
+  name: "",
+  salePrice: 100,
+  retailPrice: 90,
+  company: "Testing oil",
+  totalQuantity: 80,
+  comment: "",
+  createdAt: DateTime,
+  updatedAt: DateTime,
+};

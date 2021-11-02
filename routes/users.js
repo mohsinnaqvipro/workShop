@@ -16,7 +16,7 @@ userRouter
   .get(async (req, res, next) => {
     let result;
     try {
-      result = await dbHandler.getItems("user");
+      result = await dbHandler.getItems("users");
       return response(true, "Successfully Retrieved", result, res);
     } catch (error) {
       console.log("Error = ", error);
@@ -57,18 +57,21 @@ userRouter
   });
 
 userRouter.route("/login").post(async (req, res, next) => {
+  let result;
   try {
+    console.log("Enter in login function");
     let isMatch = null;
     let accessToken = null;
     let data = JSON.stringify(req.body);
     let parseData = JSON.parse(data);
     const { error } = loginUserSchema(parseData);
+
     if (error) {
       console.log("Enter in post request Error");
       return getErrorResponse(error, res);
     }
 
-    let userExist = await dbHandler.getItem("user", {
+    let userExist = await dbHandler.getItem("users", {
       where: { email: parseData.email },
     });
 
@@ -95,11 +98,13 @@ userRouter.route("/login").post(async (req, res, next) => {
       };
       console.log("Payload: ", payload);
       // Access Token
-      accessToken = await jwt.sign(payload, keys.secretOrKey, {
-        expiresIn: "12h" /* 30 Days */,
+      accessToken = jwt.sign(payload, keys.secretOrKey, {
+        expiresIn: "24h" /* 30 Days */,
       });
     }
-    let result = {
+    delete userExist.password;
+
+    result = {
       accessToken: "Bearer " + accessToken,
       user: userExist,
     };
@@ -175,8 +180,6 @@ userRouter
     res.end("DELETE operation not supported on /Users");
   });
 
-module.exports = userRouter;
-
 const saveUserSchema = (user) => {
   let schema = joi
     .object({
@@ -218,3 +221,5 @@ const updateUserSchema = (user) => {
     });
   return schema.validate(user);
 };
+
+module.exports = userRouter;
